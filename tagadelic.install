@@ -28,6 +28,12 @@ function tagadelic_update_1000() {
   update_variable_del('tagadelic_sort_order');
   update_variable_del('tagadelic_page_amount');
   update_variable_del('tagadelic_levels');
+
+  // Delete the block-instance variables. These are now saved with layouts.
+  foreach (taxonomy_get_vocabularies() as $machine_name => $vocab) {
+    update_variable_del('tagadelic_block_title_' . $machine_name);
+    //update_variable_del('tagadelic_block_tags_' . $machine_name); // @todo
+  }
 }
 
 /**
