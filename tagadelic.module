@@ -10,13 +10,6 @@ function tagadelic_help($path, $arg) {
 }
 
 /**
- * Implements hook_init().
- */
-function tagadelic_init() {
-  backdrop_add_css(backdrop_get_path('module', 'tagadelic') . '/tagadelic.css');
-}
-
-/**
  * Implements hook_menu().
  */
 function tagadelic_menu() {
@@ -373,6 +366,7 @@ function theme_tagadelic_weighted(array $vars) {
     $output .= theme('more_link', array('title' => t('more tags'), 'url' => "tagadelic/chunk/{$more_link_url_arg}"));
   //}
 
+  backdrop_add_css(backdrop_get_path('module', 'tagadelic') . '/tagadelic.css');
   return $output;
 }
 
@@ -399,6 +393,7 @@ function theme_tagadelic_list_box(array $vars) {
   }
   $output .= '<h2>' . $vocabulary->name . '</h2><div>' . $content . '</div>';
 
+  backdrop_add_css(backdrop_get_path('module', 'tagadelic') . '/tagadelic.css');
   return $output;
 }
 
