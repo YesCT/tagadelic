@@ -206,7 +206,12 @@ function tagadelic_get_weighted_tags($machine_names = array(), $steps = 6, $size
     $placeholders = array_fill(0, count($machine_names), '?');
     $in_phrase = implode(',', $placeholders);
     $query_string = 'SELECT COUNT(*) AS count, td.tid, td.vocabulary, td.name, td.description FROM {taxonomy_term_data} td INNER JOIN {taxonomy_index} tn ON td.tid = tn.tid INNER JOIN {node} n ON tn.nid = n.nid WHERE td.vocabulary IN (' . $in_phrase . ') GROUP BY td.tid, td.vocabulary, td.name, td.description HAVING COUNT(*) > 0 ORDER BY count DESC';
-    $result = db_query_range($query_string, 0, $size, $machine_names);
+    if ($size > 0) {
+      $result = db_query_range($query_string, 0, $size, $machine_names);
+    }
+    else {
+      $result = db_query($query_string, $machine_names);
+    }
 
     foreach ($result as $tag) {
       $tags[$tag->tid] = $tag;
@@ -418,6 +423,7 @@ function tagadelic_block_configure($delta = '', $settings = array()) {
     '#type' => 'number',
     '#title' => t('Number of tags to disply in this block.'),
     '#default_value' => isset($settings['tags'])? $settings['tags'] : 12,
+    '#description' => t("Enter '0' to display all tags."),
   );
   return $form;
 }
