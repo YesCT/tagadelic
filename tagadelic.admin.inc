@@ -14,7 +14,7 @@ function tagadelic_settings() {
     '#type' => 'number',
     '#title' => t('Number of tags to show on Tagadelic pages'),
     '#default_value' => $config->get('page_amount'),
-    '#description' => t('The number of tags that will show up in a cloud. Number of tags to show in each block must be configured in block settings.'),
+    '#description' => t("The number of tags that will show up in a cloud. Enter '0' to display all tags. Number of tags to show in each block must be configured in block settings."),
   );
   $form['tagadelic_levels'] = array(
     '#type' => 'number',
